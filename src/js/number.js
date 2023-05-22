@@ -11,7 +11,7 @@ const storage = 'testId';
  * @returns {number}
  */
 export function getId() {
-	const num= parseInt(global.localStorage.getItem(storage), 10);
+	const num = parseInt(global.localStorage.getItem(storage), 10);
 
 	if (isNaN(num)) {
 		return 0;
