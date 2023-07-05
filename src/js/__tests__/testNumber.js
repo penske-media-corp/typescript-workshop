@@ -5,12 +5,12 @@ test('getId is 0', () => {
 });
 
 test('getId is 0', () => {
-	setId(0);
+	setId(-11);
 	expect(getId()).toBe(0);
 });
 
 test('getId is 0', () => {
-	setId(-11);
+	setId(0);
 	expect(getId()).toBe(0);
 });
 
