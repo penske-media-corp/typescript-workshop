@@ -1,5 +1,6 @@
 /**
  * Defining the object type for athletes in a database.
+ * 
  * @typedef {Object} athleteType
  * @property {number} currentAge - Current age of our athlete.
  * @property {number} ageBegan - Age when our athlete started playing organized sports.
@@ -8,6 +9,7 @@
  * /
 
 /**
+ * Calculate how long an athlete has been playing their sport.
  * 
  * @param {athleteType} athlete - Athlete object from database.
  * @returns {string}
