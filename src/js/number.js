@@ -11,13 +11,9 @@ const storage = 'testId';
  * @returns {number}
  */
 export function getId() {
-	const num = parseInt(global.localStorage.getItem(storage), 10);
+	const id = parseInt(global.localStorage.getItem(storage), 10);
 
-	if (isNaN(num)) {
-		return 0;
-	}
-
-	return num;
+	return validateId(id);
 }
 
 /**
@@ -28,4 +24,18 @@ export function getId() {
  */
 export function setId(id) {
 	global.localStorage.setItem(storage, String(id));
+}
+
+/**
+ * Helper to validate the ID.
+ *
+ * @param {number} id
+ * @returns {number}
+ */
+export function validateId(id) {
+	if (isNaN(id) || 0 > id) {
+		return 0;
+	}
+
+	return id;
 }
