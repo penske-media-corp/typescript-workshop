@@ -3,15 +3,15 @@
  *
  * @type {string}
  */
-const storage = 'testId';
+const storage: string = 'testId';
 
 /**
  * Helper to get the ID from localStorage.
  *
  * @returns {number}
  */
-export function getId() {
-	const id = parseInt(global.localStorage.getItem(storage), 10);
+export function getId(): number {
+	const id: number = parseInt(global.localStorage.getItem(storage), 10);
 
 	return validateId(id);
 }
@@ -22,7 +22,7 @@ export function getId() {
  * @param {number} id
  * @returns {void}
  */
-export function setId(id) {
+export function setId(id: number): void {
 	global.localStorage.setItem(storage, String(id));
 }
 
@@ -32,7 +32,7 @@ export function setId(id) {
  * @param {number} id
  * @returns {number}
  */
-export function validateId(id) {
+export function validateId(id: number): number {
 	if (isNaN(id) || 0 > id) {
 		return 0;
 	}
