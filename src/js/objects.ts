@@ -11,11 +11,20 @@
  * @property {number} ageBegan - Age when our athlete started playing organized sports.
  * @property {string | null} sport - Name of sport played.
  */
-const Generic_Athlete = {
-    currentAge: 0,
-    ageBegan: 0,
-    sport: null,
+
+type Generic_Athlete = {
+    currentAge: number;
+    ageBegan: number;
+    sport: string | null;
 };
+
+// Or if you wanted to do an interface:
+//
+// interface athleteType = {
+//     currentAge: number;
+//     ageBegan: number;
+//     sport: string | null;
+// };
 
 /**
  * Calculate how long an athlete has been playing their sport.
@@ -23,7 +32,7 @@ const Generic_Athlete = {
  * @param {Generic_Athlete} athlete - Athlete object from database.
  * @returns {string}
  */
-export function yearsInSports(athlete) {
+export function yearsInSports(athlete: Generic_Athlete): string {
     return `This athlete has played ${athlete.sport ? athlete.sport : 'sports'} for ${athlete.currentAge - athlete.ageBegan} years`;
 }
 
@@ -32,19 +41,19 @@ export function yearsInSports(athlete) {
 // Instructions: 
 // Extend a Generic_Athlete object to make a new object called 'Simone_Biles' which includes a property called 'gold_medals' which is a number type
 
-const Simone_Biles = Object.create(Generic_Athlete);
-Simone_Biles.currentAge = 26;
-Simone_Biles.ageBegan = 6;
-Simone_Biles.sport = 'gymnastics';
+interface Simone_Biles extends Generic_Athlete {
+    gold_medals: number;
+}
 
-Simone_Biles.gold_medals = 4;
+const simone_biles: Simone_Biles = { currentAge: 26, ageBegan: 6, sport: 'gymnastics', gold_medals: 4 };
+
 
 /**
  * Calculate how long an athlete has been playing their sport.
  * @returns {string}
  */
-export function simoneBilesTimeline() {
-    return `Simone Biles has won ${Simone_Biles.gold_medals} gold medals in ${Simone_Biles.sport} over ${Simone_Biles.currentAge - Simone_Biles.ageBegan} years`;
+export function simoneBilesTimeline(): string {
+    return `Simone Biles has won ${simone_biles.gold_medals} gold medals in ${simone_biles.sport} over ${simone_biles.currentAge - simone_biles.ageBegan} years`;
 }
 
 
