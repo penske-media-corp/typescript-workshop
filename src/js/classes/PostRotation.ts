@@ -4,34 +4,36 @@ import sanitizeHtml from 'sanitize-html';
  * Responsible for Rotating through active sponsored posts.
  */
 export default class PostRotation {
-	posts;
-	activePost;
-	dataAttr = 'data-pmc-sponsored-posts';
-	storage = 'pmcSponsoredPostIndex';
+	posts = Array<Record<string, string>>;
+	activePost: Record<string, string>;
+	dataAttr = 'data-pmc-sponsored-posts' as const;
+	storage = 'pmcSponsoredPostIndex' as const;
 
 	/**
 	 * Constructor.
 	 *
 	 * @param posts
 	 */
-	constructor(posts) {
+	constructor(posts : Array<Record<string, string>>) {
 		this.posts = posts;
 		this.init();
 	}
 
 	/**
-	 * Initialize if we have more than 1 active sponsored posts.
+	 * Initialize if we have more than 1 active sponsored posts.'
+	 *
+	 * @returns {void}
 	 */
-	init() {
+	init(): void {
 		if (this.setupActivePost()) {
 			this.displayActivePost();
 		}
 
 		const placements = this.getPlacements();
 
-		for (let i = 0; i < placements.length; i++) {
-			placements[i].classList.add('pmc-sponsored-posts-visible');
-		}
+		placements.forEach((placement) => {
+			placement.classList.add('pmc-sponsored-posts-visible');
+		});
 	}
 
 	/**
@@ -40,8 +42,8 @@ export default class PostRotation {
 	 *
 	 * @returns {number}
 	 */
-	setupActivePost() {
-		let index = parseInt(this.getPostIndex(), 10);
+	setupActivePost(): number {
+		let index = this.getPostIndex();
 
 		index = (0 <= index) ? index : -1;
 
@@ -60,25 +62,29 @@ export default class PostRotation {
 	/**
 	 * Helper to get post index from localStorage.
 	 *
-	 * @returns {string}
+	 * @returns {number}
 	 */
-	getPostIndex() {
-		return global.localStorage.getItem(this.storage);
+	getPostIndex(): number {
+		return parseInt(global.localStorage.getItem(this.storage), 10) || 0;
 	}
 
 	/**
 	 * Helper to set post index and save to localStorage.
 	 *
 	 * @param index
+	 * 
+	 * @returns {void}
 	 */
-	setPostIndex(index) {
-		global.localStorage.setItem(this.storage, index);
+	setPostIndex(index: number): void {
+		global.localStorage.setItem(this.storage, String(index));
 	}
 
 	/**
 	 * Displays the active sponsored post.
+	 * 
+	 * @returns {void}
 	 */
-	displayActivePost() {
+	displayActivePost(): void {
 		const activePost = this.activePost,
 			placements = this.getPlacements();
 
@@ -100,7 +106,7 @@ export default class PostRotation {
 	 *
 	 * @returns {NodeListOf<Element>}
 	 */
-	getPlacements() {
+	getPlacements(): NodeListOf<Element> {
 		return document.querySelectorAll('['+this.dataAttr+']');
 	}
 }
